@@ -1,8 +1,11 @@
 <?php
-
 session_start();
+
+header('Content-Type: application/json; charset=utf-8');
+
 if (!isset($_SESSION['usuario_id'])) {
-    die("Acesso negado. Você não está logado no sistema.");
+    echo json_encode(["status" => "error", "mensagem" => "Acesso negado. Você precisa estar logado para excluir."]);
+    exit;
 }
 
 $host    = "localhost";
@@ -13,30 +16,32 @@ $banco   = "gametracker_db";
 try {
     $conexao = new mysqli($host, $usuario, $senha, $banco);
 } catch (mysqli_sql_exception $e) {
-    die(" Falha na conexão: " . $e->getMessage());
+    echo json_encode(["status" => "error", "mensagem" => "Falha na conexão com a matriz."]);
+    exit;
 }
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+if (isset($_GET['id'])) {
+    $id = (int)$_GET['id'];
+    $usuario_id = $_SESSION['usuario_id'];
 
-if ($id > 0) {
     try {
-        $usuario_id = $_SESSION['usuario_id'];
         $sql = "DELETE FROM jogos WHERE id = ? AND usuario_id = ?";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("ii", $id, $usuario_id);
         $stmt->execute();
-        $stmt->close();
 
-        echo "<h2> Jogo excluído com sucesso !</h2>";
-        echo "<p>Espero que tenha se divertido jogando.</p>";
-        echo "<br><a href='listar.php'>Voltar para a Biblioteca</a>";
-        exit();
-   
+        if ($stmt->affected_rows > 0) {
+            echo json_encode(["status" => "success", "mensagem" => "Jogo deletado da sua estante com sucesso."]);
+        } else {
+            echo json_encode(["status" => "error", "mensagem" => "Jogo não encontrado ou você não tem permissão para apagá-lo."]);
+        }
+        
+        $stmt->close();
     } catch (mysqli_sql_exception $e) {
-        echo " Erro ao excluir jogo: " . $e->getMessage();
+        echo json_encode(["status" => "error", "mensagem" => "Erro ao tentar apagar o registro: " . $e->getMessage()]);
     }
 } else {
-    echo " ID inválido para exclusão.";
+    echo json_encode(["status" => "error", "mensagem" => "ID do jogo não foi enviado."]);
 }
 
 $conexao->close();
