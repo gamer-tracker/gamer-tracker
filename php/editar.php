@@ -1,5 +1,9 @@
 <?php
-declare(strict_types=1);
+
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    die("Acesso negado. Você não está logado no sistema.");
+}
 
 $host    = "localhost";
 $usuario = "root";
@@ -12,7 +16,6 @@ try {
     die("❌ Falha na conexão: " . $e->getMessage());
 }
 
-// Se o formulário de edição for enviado via POST, atualiza no banco
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id     = (int)$_POST['id_jogo'];
     $status = trim($_POST['status_jogo']);
@@ -20,9 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $review = trim($_POST['review_jogo']);
 
     try {
-        $sql = "UPDATE jogos SET status_jogo = ?, nota = ?, review = ? WHERE id = ?";
+        $usuario_id = $_SESSION['usuario_id'];
+        $sql = "UPDATE jogos SET status_jogo = ?, nota = ?, review = ? WHERE id = ? AND usuario_id = ?";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sisi", $status, $nota, $review, $id);
+        $stmt->bind_param("sisii", $status, $nota, $review, $id, $usuario_id);
         $stmt->execute();
         $stmt->close();
 
@@ -33,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Se cair aqui via GET, mostra o formulário preenchido com os dados atuais do jogo
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $jogo = null;
 

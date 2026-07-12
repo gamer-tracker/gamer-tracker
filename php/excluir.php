@@ -1,5 +1,9 @@
 <?php
-declare(strict_types=1);
+
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    die("Acesso negado. Você não está logado no sistema.");
+}
 
 $host    = "localhost";
 $usuario = "root"; 
@@ -16,21 +20,18 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($id > 0) {
     try {
-        $sql = "DELETE FROM jogos WHERE id = ?";
+        $usuario_id = $_SESSION['usuario_id'];
+        $sql = "DELETE FROM jogos WHERE id = ? AND usuario_id = ?";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $stmt->bind_param("ii", $id, $usuario_id);
         $stmt->execute();
         $stmt->close();
 
-
-        // mensagemzinha para quando um jogo for excuido ;)
         echo "<h2> Jogo excluído com sucesso !</h2>";
         echo "<p>Espero que tenha se divertido jogando.</p>";
         echo "<br><a href='listar.php'>Voltar para a Biblioteca</a>";
         exit();
-        //caso queiram tirar dps é so apagar e deixar esses aqui:
-        //header("Location: listar.php");
-        //exit();
+   
     } catch (mysqli_sql_exception $e) {
         echo " Erro ao excluir jogo: " . $e->getMessage();
     }

@@ -1,5 +1,9 @@
 <?php
-declare(strict_types=1);
+
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    die("Acesso negado. Você não está logado no sistema.");
+}
 
 $host    = "localhost";
 $usuario = "root";
@@ -12,25 +16,30 @@ try {
     die("❌ Falha na conexão: " . $e->getMessage());
 }
 
+$usuario_id = $_SESSION['usuario_id'];
 $termo_busca = trim($_GET['busca'] ?? '');
 $jogos = [];
 
 try {
     if ($termo_busca !== '') {
-        $sql = "SELECT id, nome, status_jogo, nota, review, genero, ano_lancamento FROM jogos WHERE nome LIKE ? ORDER BY data_cadastro DESC";
+        $sql = "SELECT id, nome, status_jogo, nota, review, genero, ano_lancamento FROM jogos WHERE nome LIKE ? AND usuario_id = ? ORDER BY data_cadastro DESC";
         $stmt = $conexao->prepare($sql);
-
+        
         $parametro = "%" . $termo_busca . "%";
-        $stmt->bind_param("s", $parametro);
-
+        $stmt->bind_param("si", $parametro, $usuario_id);
+        
         $stmt->execute();
         $resultado = $stmt->get_result();
         $jogos = $resultado->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
     } else {
-        $sql = "SELECT id, nome, status_jogo, nota, review, genero, ano_lancamento FROM jogos ORDER BY data_cadastro DESC";
-        $resultado = $conexao->query($sql);
+        $sql = "SELECT id, nome, status_jogo, nota, review, genero, ano_lancamento FROM jogos WHERE usuario_id = ? ORDER BY data_cadastro DESC";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
         $jogos = $resultado->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
     }
 } catch (mysqli_sql_exception $e) {
     die("❌ Erro ao buscar os jogos: " . $e->getMessage());

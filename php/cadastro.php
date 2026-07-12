@@ -1,5 +1,9 @@
 <?php
-declare(strict_types=1);
+
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    die("Acesso negado. Você não está logado no sistema.");
+}
 
 $host    = "localhost";
 $usuario = "root";
@@ -43,14 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
+    $usuario_id = $_SESSION['usuario_id'];
+
     try {
-        $sql = "INSERT INTO jogos (nome, status_jogo, nota, review, genero, ano_lancamento) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO jogos (nome, status_jogo, nota, review, genero, ano_lancamento, usuario_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("ssisss", $nome_jogo, $status, $nota, $review, $genero, $ano_lancamento);
+        $stmt->bind_param("ssisssi", $nome_jogo, $status, $nota, $review, $genero, $ano_lancamento, $usuario_id);
         $stmt->execute();
         $stmt->close();
 
-        echo "<h2>🎮 Jogo salvo com dados da API RAWG!</h2>";
+        echo "<h2>🎮 Jogo salvo!</h2>";
         echo "<p>Gênero: $genero | Ano: $ano_lancamento</p>";
         echo "<br><a href='../index.html'>Voltar</a>";
     } catch (mysqli_sql_exception $e) {
