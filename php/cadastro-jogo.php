@@ -9,10 +9,10 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-$host    = "localhost";
+$host = "localhost";
 $usuario = "root"; 
-$senha   = "";       
-$banco   = "gametracker_db";
+$senha = "";       
+$banco = "gametracker_db";
 
 try {
     $conexao = new mysqli($host, $usuario, $senha, $banco);
@@ -22,11 +22,29 @@ try {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
     $usuario_id = $_SESSION['usuario_id'];
-    $nome_jogo  = trim($_POST['nome_jogo'] ?? 'Jogo Sem Nome');
-    $status     = trim($_POST['status_jogo'] ?? 'Jogando');
-    $nota       = isset($_POST['nota_jogo']) && $_POST['nota_jogo'] !== '' ? (int)$_POST['nota_jogo'] : null;
-    $review     = trim($_POST['review_jogo'] ?? '');
+    $nome_jogo = trim($_POST['nome_jogo'] ?? '');
+
+    if ($nome_jogo === '') {
+        echo json_encode(["status" => "error", "mensagem" => "O nome do jogo não pode ficar em branco."]);
+        exit;
+    }
+
+    $status = trim($_POST['status_jogo'] ?? 'Jogando');
+
+    $nota = isset($_POST['nota_jogo']) && $_POST['nota_jogo'] !== '' ? (int)$_POST['nota_jogo'] : null;
+    if ($nota != null && ($nota < 1 || $nota > 10)) {
+        echo json_encode(["status" => "error", "mensagem" => "A nota deve ser entre 1 e 10."]);
+        exit;
+    }
+
+    $review = trim($_POST['review_jogo'] ?? '');
+
+    if (mb_strlen($review, 'UTF-8') > 500) {
+        echo json_encode(["status" => "error", "mensagem" => "Calma aí, Shakespeare! O review deve ter no máximo 500 caracteres."]);
+        exit;
+    }
 
     $apiKey = "cf26b0e08d3c4bb1801178470ce186b1";
     $urlApi = "https://api.rawg.io/api/games?key=" . $apiKey . "&search=" . urlencode($nome_jogo);
