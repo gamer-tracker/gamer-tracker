@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+
+<!-- Navegador da pagina inicial como a logo e nome além das seções  'cadastrar jogo' e 'Minha biblioteca' -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-body-secondary sticky-top border-bottom py-4 ">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <i class="bi bi-controller fs-4 me-7 text-warning me-2" ></i> Game Tracker
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Página Inicial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Entrar / Criar Conta</a>
+                </li>
+                <li class="nav-item">
+                    <a class='nav-link' href="cadastro_jogo.html">Cadastrar jogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class='nav-link' href="/php/listar.php">Lista meus jogos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#quem-somos">Sobre Nós</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#contatos">Contato</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Local para inserção de informações sobre o jogo como 'Nome do jogo*', 'Status*', 'Nota*' e 'Descrição'  Os campos com '*' são obrigatirio responder-->
+<div class="container mt-5" style="padding: 40px 20px;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white w-200">
+                    <h4 class="mb-2">Adicionar Novo Jogo</h4>
+                </div>
+                <div class="card-body">
+                    <form action="php/cadastro.php" method="POST" id="formCadastro" class="needs-validation" novalidate>
+                        
+
+                        <!-- Nome do jogo e apresenta uma mensagem de erro caso não for digitado nada-->
+                        <div class="mb-3">
+                            <label for="nome_jogo" class="form-label">Nome do Jogo *</label>
+                            <input type="text" class="form-control" id="nome_jogo" name="nome_jogo" required>
+                            <div class="invalid-feedback">Por favor, insira o nome do jogo.</div>
+                        </div>
+                        
+                        <!-- Status do jogos com os niveis: jogando, já zerei, platinado. apresenta tambem mensagem de erro caso não for ditado-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="status_jogo" class="form-label">Status *</label>
+                                <select class="form-select" id="status_jogo" name="status_jogo" required>
+                                    <option value="" selected disabled>Escolha...</option>
+                                    <option value="Jogando">Jogando</option>
+                                    <option value="Já zerei">Zerado</option>
+                                    <option value="Platinado">Platinado</option>
+                                </select>
+                                <div class="invalid-feedback">Selecione o status do jogo.</div>
+                            </div>
+                            <!-- Nota do jogo variando de 0 a 10. apresenta mensagem de erro caso não for digitado-->
+
+                            <div class="col-md-6 mb-3">
+                                <label for="nota_jogo" class="form-label">Nota (0 a 10) *</label>
+                                <input type="number" class="form-control" id="nota_jogo" name="nota_jogo" min="0" max="10" required>
+                                <div class="invalid-feedback">Por favor, insira uma nota para o jogo.</div>
+                            </div>
+                        </div>
+                        <!-- Descrição do jogo, varia de zero a trezentos caracteres, não apresenta mensagem de erro-->
+                        <div class="mb-3">
+                            <label for="review_jogo" class="form-label">Sua Review</label>
+                            <textarea class="form-control" id="review_jogo" name="review_jogo" rows="4" maxlength="300"></textarea>
+                            <div class="form-text text-end" id="contador">0 / 300 caracteres</div>
+                        </div>
+                        
+                        <!-- Botão de validação para enviar as informações relacionado ao jogo-->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success"><i class="bi bi-save"></i> Salvar na Biblioteca</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,10 +1,172 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tracker - Bem-vindo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<div class="background-gif"></div>
+<div class="background-overlay"></div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-body-secondary sticky-top border-bottom py-4 ">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <i class="bi bi-controller fs-4 me-7 text-warning me-2" ></i> Game Tracker
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Página Inicial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Entrar / Criar Conta</a>
+                </li>
+                <li class="nav-item">
+                    <a class='nav-link' href="cadastro_jogo.html">Cadastrar jogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class='nav-link' href="cadastro_jogo.html">Lista meus jogos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#quem-somos">Sobre Nós</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contato">Contato</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="text-center section-padding" id="hero">
+    <div class="container d-flex flex-column align-items-center">
+        <h1 class="display-2 fw-bold text-white mb-6">Bem-vindo ao Game Tracker</h1>
+        <p class="lead text-light mb-5 fs-4"> Organize seu arsenal de jogos e embarque na próxima campanha.</p>
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <a href="login.html" class="btn btn-primary btn-lg px-4 gap-3"><i class="bi bi-rocket-takeoff-fill"></i> Começar Agora</a>
+            <a href="php/listar.php" class="btn btn-outline-light btn-lg px-4">Ver Minha Biblioteca</a>
+        </div>
+    </div>
+</header>
+
+<section id="quem-somos" class="section-padding bg-dark/50">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="display-5 fw-semibold mb-4">Quem somos nós?</h2>
+                <p class="fs-5 text-light lh-lg">Somos um esquadrão de 6 desenvolvedores que cansou de se perder em planilhas, notas no celular e backlogs infinitos. Construímos nosso próprio sistema para manter nossa vida gamer sob total controle. Sem bagunça, sem algoritmos dizendo o que devemos jogar. Apenas nós e a nossa estante virtual.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="img/pac_animado.webp" alt="Imagem do astronauta" class="img-fluid rounded-2 shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="funcionalidades" class="section-padding">
+    <div class="container">
+        <h2 class="text-center display-5 fw-semibold mb-5">O Nosso Arsenal</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
+            
+            <div class="col">
+                <div class="card h-100 bg-dark/70 border-primary rounded-4">
+                    <div class="card-body">
+                        <i class="bi bi-robot icon-large mb-3 d-block"></i>
+                        <h5 class="card-title text-white">🤖 Cadastro Inteligente</h5>
+                        <p class="card-text text-light small">Você digita o nome do jogo, e o nosso sistema se infiltra na RAWG API para buscar gênero e ano automaticamente.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 bg-dark/70 border-primary rounded-4">
+                    <div class="card-body">
+                        <i class="bi bi-controller icon-large mb-3 d-block"></i>
+                        <h5 class="card-title text-white">📊 Controle Absoluto</h5>
+                        <p class="card-text text-light small">Está Jogando, Já Zerei ou foi Platinado? Você dita o status, dá a sua nota e deixa o seu review pessoal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 bg-dark/70 border-primary rounded-4">
+                    <div class="card-body">
+                        <i class="bi bi-gear icon-large mb-3 d-block"></i>
+                        <h5 class="card-title text-white">⚙️ Gestão Total</h5>
+                        <p class="card-text text-light small">Edite suas notas ou delete da sua biblioteca aquele jogo que não merecia nem ter sido instalado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 bg-dark/70 border-primary rounded-4">
+                    <div class="card-body">
+                        <i class="bi bi-search icon-large mb-3 d-block"></i>
+                        <h5 class="card-title text-white">🔍 Busca Dinâmica</h5>
+                        <p class="card-text text-light small">Um filtro em tempo real acha qualquer jogo nos seus registros em milissegundos.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contato" class="section-padding bg-dark/70">
+    <div class="container">
+        <h2 class="text-center display-5 fw-semibold mb-5">Entre em Contato</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-light fs-5 mb-5 text-center">
+                <p>Tem alguma dúvida, sugestão para o arsenal ou quer apenas trocar uma ideia sobre games com o esquadrão? Mande sua mensagem abaixo e responderemos assim que o mais brevemente.</p>
+            </div>
+            <div class="col-md-8">
+                <div class="card bg-dark/80 border-secondary rounded-4 shadow">
+                    <div class="card-body">
+                        <form action="#" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nome" class="form-label text-light">Seu Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="John Marston" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label text-light">Seu Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="john.m@rdr.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="assunto" class="form-label text-light">Assunto</label>
+                                <input type="text" class="form-control" id="assunto" name="assunto" placeholder="Sugestão / Dúvida" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mensagem" class="form-label text-light">Mensagem</label>
+                                <textarea class="form-control" id="mensagem" name="mensagem" rows="5" placeholder="Olá pessoal do Game Tracker, eu gostaria de..." required></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-send-fill"></i> Enviar para o Esquadrão</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-4 bg-dark border-top mt-auto text-center">
+    <div class="container">
+        <p class="text-light mb-0 small">&copy; 2026 Game Tracker Esquadrão.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
