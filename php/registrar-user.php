@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->execute();
         $stmt->close();
         
-        echo json_encode(["status" => "success", "mensagem" => "Identidade forjada com sucesso!"]);
+        echo json_encode(["status" => "success", "mensagem" => "Identidade forjada com sucesso!", "name" => $nome, "email" => $email]);
     } catch (mysqli_sql_exception $e) {
         if ($conexao->errno === 1062) {
             echo json_encode(["status" => "error", "mensagem" => "Esse e-mail já está registrado na base de dados."]);
