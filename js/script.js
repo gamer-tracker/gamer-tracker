@@ -101,6 +101,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('nome-perfil').textContent = result.data.nome;
             document.getElementById('email-perfil').innerHTML = `<i class="bi bi-envelope"></i> ${result.data.email}`;
         }
+
+        // Carrega as estatísticas (contagem de jogos)
+        const resStats = await fetch('php/estatisticas.php');
+        const stats = await resStats.json();
+        if (stats.status === 'success') {
+            document.getElementById('stat-total').textContent = stats.data.total;
+            document.getElementById('stat-jogando').textContent = stats.data.jogando;
+            document.getElementById('stat-zerado').textContent = stats.data.zerado;
+            document.getElementById('stat-platinado').textContent = stats.data.platinado;
+        }
     }
     
     // Carrega Biblioteca
@@ -126,5 +136,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>`;
             });
         }
+    }
+});
+
+// 6. Mantém o estado de login visível na página inicial
+document.addEventListener('DOMContentLoaded', async () => {
+    const navConta = document.getElementById('nav-conta');
+    if (!navConta) return;
+
+    try {
+        const res = await fetch('php/dados-perfil.php');
+        const result = await res.json();
+        if (result.status === 'success') {
+            navConta.innerHTML = `<a class="nav-link" href="perfil.html"><i class="bi bi-person-circle"></i> Meu Perfil</a>`;
+        }
+    } catch (e) {
+        // Sem sessão ativa: mantém "Entrar / Criar Conta"
     }
 });
