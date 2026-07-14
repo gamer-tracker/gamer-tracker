@@ -1,9 +1,9 @@
 <?php
 
-$host    = "localhost";
-$usuario = "gt_admin"; 
-$senha   = "GameTracker#2026";       
-$banco   = "gametracker_db";
+$host    = "sql107.infinityfree.com";
+$usuario = "if0_42410709"; 
+$senha   = "6Do7jxxOiqR";       
+$banco   = "if0_42410709_gametracker";
 
 try {
     $conexao = new mysqli($host, $usuario, $senha, $banco);
