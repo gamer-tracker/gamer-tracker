@@ -1,71 +1,60 @@
-/* index.html */
-        body {
-            position: relative;
-            min-height: 100vh;
-        }
+body {
+    position: relative;
+    min-height: 100vh;
+}
 
-        /* O contêiner do GIF em tela cheia */
-        .background-gif {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.pinimg.com/originals/ab/76/17/ab761745f01df090ec38b827dd65e58a.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: blur(12px); /* Adiciona um leve desfoque opcional */
-            z-index: -2; /* Garante que fique atrás de tudo */
-        }
+.background-gif {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.pinimg.com/originals/ab/76/17/ab761745f01df090ec38b827dd65e58a.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(12px);
+    z-index: -2;
+}
 
-        /* Camada de escurecimento por cima do GIF */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Cor preta com 85% de opacidade */
-            z-index: -1; /* Fica entre o GIF e o conteúdo */
-        }
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: -1;
+}
 
-        /* Estilo para as seções principais */
-        .section-padding {
-            padding: 80px 0;
-        }
+.section-padding {
+    padding: 80px 0;
+}
 
-        /* Ícones grandes na seção de funcionalidades */
-        .icon-large {
-            font-size: 3rem;
-            color: #38bdf8; /* Um azul mais claro para contraste */
-        }
+.icon-large {
+    font-size: 3rem;
+    color: #38bdf8;
+}
 
-        p{
-            text-align: justify;
-        }
+p {
+    text-align: justify;
+}
 
-
-/* Arquivo login.html */
 #login {
     background-color: #0e0d0d;
     background-image: radial-gradient(circle at center, #2b3035 0%, #000000 100%);
     }
 
-
-/* Registro.html */
 #registro {
     background-color: #121212;
     background-image: radial-gradient(circle at center, #2b3035 0%, #000000 100%);
     }
 
-/* atualizar_dados_perfil.html*/
-#atualizar_dados{            
+    #atualizar_dados{            
     background-color: #121212;
     background-image: radial-gradient(circle at center, #2b3035 0%, #000000 100%);
         }
 
-/* Perfil.html */
 #perfil {
     background-color: #121212;
     color: #f8f9fa;

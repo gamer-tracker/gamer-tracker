@@ -11,7 +11,6 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuario_id = $_SESSION['usuario_id'];
 
 try {
-    // Busca os dados filtrando pelo usuário logado
     $query = "SELECT 
                 COUNT(*) as total,
                 SUM(CASE WHEN status_jogo = 'Jogando' THEN 1 ELSE 0 END) as jogando,

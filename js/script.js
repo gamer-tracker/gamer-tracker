@@ -1,4 +1,3 @@
-// 1. Validação Visual do Bootstrap
 (function () {
     'use strict';
     const forms = document.querySelectorAll('.needs-validation');
@@ -13,7 +12,6 @@
     });
 })();
 
-// 2. Interceptador Global de Formulários (A solução para o erro do JSON)
 document.addEventListener('DOMContentLoaded', () => {
     const apiForms = document.querySelectorAll('form[action^="php/"]');
     
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.status === 'success') {
                     alert('✅ ' + data.mensagem);
                     
-                    // Lógica de redirecionamento universal
                     if (data.redirect) {
                         window.location.href = data.redirect;
                     } else if (url.includes('registrar-user.php')) {
@@ -53,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 3. Função de Excluir Conta (Blindada)
 async function confirmarExclusao() {
     if (!confirm("ATENÇÃO: Tem certeza que quer excluir sua conta? Tudo será perdido.")) return;
     
@@ -75,7 +71,6 @@ async function confirmarExclusao() {
     }
 }
 
-// 4. Função de Excluir Jogo
 async function excluirJogo(id) {
     if (!confirm("Remover este jogo da estante?")) return;
     try {
@@ -90,7 +85,6 @@ async function excluirJogo(id) {
     }
 }
 
-// 5. Injeção de dados (Perfil e Biblioteca)
 document.addEventListener('DOMContentLoaded', async () => {
     // Carrega Perfil
     const perfilPage = document.getElementById('perfil');
@@ -102,7 +96,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('email-perfil').innerHTML = `<i class="bi bi-envelope"></i> ${result.data.email}`;
         }
 
-        // Carrega as estatísticas (contagem de jogos)
         const resStats = await fetch('php/estatisticas.php');
         const stats = await resStats.json();
         if (stats.status === 'success') {
@@ -113,7 +106,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
     
-    // Carrega Biblioteca
     const container = document.getElementById('container-jogos');
     if (container) {
         const res = await fetch('php/listar.php');
@@ -122,13 +114,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (result.status === 'success') {
             result.data.forEach(jogo => {
-                // Pequeno truque pra evitar que apareça "null" na tela caso o usuário não tenha preenchido algo
                 const genero = jogo.genero || 'Gênero não informado';
                 const ano = jogo.ano_lancamento || 'Ano desconhecido';
                 const nota = jogo.nota ? `${jogo.nota}/10` : 'Sem nota';
                 const review = jogo.review || 'Nenhuma análise cadastrada.';
 
-                // Montando o HTML com todos os dados agora!
                 container.innerHTML += `
                     <div class="col">
                         <div class="card h-100 bg-dark text-white border-secondary">
@@ -159,7 +149,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// 6. Mantém o estado de login visível na página inicial
 document.addEventListener('DOMContentLoaded', async () => {
     const navConta = document.getElementById('nav-conta');
     if (!navConta) return;
@@ -171,6 +160,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             navConta.innerHTML = `<a class="nav-link" href="perfil.html"><i class="bi bi-person-circle"></i> Meu Perfil</a>`;
         }
     } catch (e) {
-        // Sem sessão ativa: mantém "Entrar / Criar Conta"
     }
 });
