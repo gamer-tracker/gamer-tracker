@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Tracker - Editar Jogo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card bg-dark border-secondary p-4">
+        <h4>Editar Jogo</h4>
+        <form action="php/editar.php" method="POST" id="formEditar" class="needs-validation" novalidate>
+            <input type="hidden" id="id_jogo" name="id_jogo">
+            
+            <div class="mb-3">
+                <label class="form-label">Nome do Jogo</label>
+                <input type="text" class="form-control" id="nome_jogo" name="nome_jogo" disabled>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select" id="status_jogo" name="status_jogo" required>
+                    <option value="Jogando">Jogando</option>
+                    <option value="Já zerei">Já zerei</option>
+                    <option value="Platinado">Platinado</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nota (0 a 10)</label>
+                <input type="number" class="form-control" id="nota_jogo" name="nota_jogo" min="0" max="10">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Review</label>
+                <textarea class="form-control" id="review_jogo" name="review_jogo" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-warning w-100">Salvar Alterações</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const response = await fetch(`php/editar.php?id=${id}`);
+        const result = await response.json();
+        if (result.status === 'success') {
+            const j = result.data;
+            document.getElementById('id_jogo').value = j.id;
+            document.getElementById('nome_jogo').value = j.nome;
+            document.getElementById('status_jogo').value = j.status_jogo;
+            document.getElementById('nota_jogo').value = j.nota;
+            document.getElementById('review_jogo').value = j.review;
+        }
+    });
+</script>
+<script src="js/script.js"></script>
+</body>
+</html>
