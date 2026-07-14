@@ -119,15 +119,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         const res = await fetch('php/listar.php');
         const result = await res.json();
         container.innerHTML = '';
+        
         if (result.status === 'success') {
             result.data.forEach(jogo => {
+                // Pequeno truque pra evitar que apareça "null" na tela caso o usuário não tenha preenchido algo
+                const genero = jogo.genero || 'Gênero não informado';
+                const ano = jogo.ano_lancamento || 'Ano desconhecido';
+                const nota = jogo.nota ? `${jogo.nota}/10` : 'Sem nota';
+                const review = jogo.review || 'Nenhuma análise cadastrada.';
+
+                // Montando o HTML com todos os dados agora!
                 container.innerHTML += `
                     <div class="col">
-                        <div class="card h-100 bg-dark text-white">
+                        <div class="card h-100 bg-dark text-white border-secondary">
                             <div class="card-body">
-                                <h5>${jogo.nome}</h5>
-                                <p>Status: ${jogo.status_jogo}</p>
-                                <div class="d-flex gap-2">
+                                <h5 class="card-title text-primary">${jogo.nome}</h5>
+                                <h6 class="card-subtitle mb-3 text-muted">${genero} •${ano}</h6>
+                                
+                                <p class="card-text mb-1">
+                                    <strong>Status:</strong> <span class="badge bg-info text-dark">${jogo.status_jogo}</span>
+                                </p>
+                                <p class="card-text mb-2">
+                                    <strong>Nota:</strong> ${nota}
+                                </p>
+                                
+                                <div class="bg-secondary p-2 rounded mb-3">
+                                    <p class="card-text small mb-0"><em>"${review}"</em></p>
+                                </div>
+
+                                <div class="d-flex gap-2 mt-auto">
                                     <a href="editar_jogo.html?id=${jogo.id}" class="btn btn-sm btn-warning">Editar</a>
                                     <button onclick="excluirJogo(${jogo.id})" class="btn btn-sm btn-danger">Excluir</button>
                                 </div>
