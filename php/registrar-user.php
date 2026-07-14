@@ -1,21 +1,10 @@
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
-
-$host    = "localhost";
-$usuario = "root"; 
-$senha   = "";       
-$banco   = "gametracker_db";
-
-try {
-    $conexao = new mysqli($host, $usuario, $senha, $banco);
-} catch (mysqli_sql_exception $e) {
-    echo json_encode(["status" => "error", "mensagem" => "Falha crítica de conexão: " . $e->getMessage()]);
-    exit;
-}
+require_once 'conexao.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nome  = trim($_POST['nome_usuario'] ?? '');
+    $nome = trim($_POST['nome_usuario'] ?? '');
     $email = trim($_POST['email_usuario'] ?? '');
     $senha = $_POST['senha_usuario'] ?? '';
 
@@ -43,4 +32,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 $conexao->close();
-?>

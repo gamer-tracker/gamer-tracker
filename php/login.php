@@ -1,17 +1,7 @@
 <?php
 
 session_start();
-
-$host    = "localhost";
-$usuario = "root"; 
-$senha   = "";       
-$banco   = "gametracker_db";
-
-try {
-    $conexao = new mysqli($host, $usuario, $senha, $banco);
-} catch (mysqli_sql_exception $e) {
-    die("❌ Conexão recusada: " . $e->getMessage());
-}
+require_once 'conexao.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['email_usuario']);

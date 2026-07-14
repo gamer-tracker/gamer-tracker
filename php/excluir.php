@@ -1,22 +1,11 @@
 <?php
 session_start();
+require_once 'conexao.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
 if (!isset($_SESSION['usuario_id'])) {
     echo json_encode(["status" => "error", "mensagem" => "Acesso negado. Você precisa estar logado para excluir."]);
-    exit;
-}
-
-$host    = "localhost";
-$usuario = "root"; 
-$senha   = "";       
-$banco   = "gametracker_db";
-
-try {
-    $conexao = new mysqli($host, $usuario, $senha, $banco);
-} catch (mysqli_sql_exception $e) {
-    echo json_encode(["status" => "error", "mensagem" => "Falha na conexão com a matriz."]);
     exit;
 }
 
@@ -45,4 +34,3 @@ if (isset($_GET['id'])) {
 }
 
 $conexao->close();
-?>
